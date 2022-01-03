@@ -8,11 +8,14 @@ from flask import Flask, request, make_response
 
 app = Flask(__name__)
 
+
 def timestamp():
     return datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
+
 def docker_log(text):
     os.system(f"echo {timestamp()} - {text} > /proc/1/fd/1")
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -39,8 +42,11 @@ def push():
             docker_log(f"Bad Request: {result.answer}")
             return make_response(f"{result.answer}", 400)
 
+
 if __name__ == "__main__":
     docker_log(f"Running Pushover Notifier.")
-    docker_log(f"POST a request to /push with at least token, user and message as data.")
-    http_server = WSGIServer(('0.0.0.0', 5000), app)
+    docker_log(
+        f"POST a request to /push with at least token, user and message as data."
+    )
+    http_server = WSGIServer(("0.0.0.0", 5000), app)
     http_server.serve_forever()

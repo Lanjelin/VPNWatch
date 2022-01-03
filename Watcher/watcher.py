@@ -74,7 +74,7 @@ class Watcher():
     def watch(self):
         try:
             ip = requests.get("https://api.ipify.org").content.decode("utf8")
-        except requests.exceptions.ConnectionError:
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
             if self.vpn_state == 0:
                 self.data["message"] = "No connection through VPN Tunnel."
                 self.docker_log(f"{self.data['message']}")

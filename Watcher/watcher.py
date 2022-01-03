@@ -6,7 +6,6 @@ import requests
 from time import sleep
 from datetime import datetime
 
-
 class Watcher():
     def __init__(self, environ_lower):
         self.environ_lower = environ_lower

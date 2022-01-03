@@ -3,9 +3,8 @@
 import os
 from pushover import Pushover
 from datetime import datetime
+from gevent.pywsgi import WSGIServer
 from flask import Flask, request, make_response
-
-
 
 app = Flask(__name__)
 
@@ -41,4 +40,7 @@ def push():
             return make_response(f"{result.answer}", 400)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=True)
+    docker_log(f"Running Pushover Notifier.")
+    docker_log(f"POST a request to /push with at least token, user and message as data.")
+    http_server = WSGIServer(('0.0.0.0', 5000), app)
+    http_server.serve_forever()

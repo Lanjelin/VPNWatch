@@ -6,6 +6,11 @@ import os
 
 app = Flask(__name__)
 
+def timestamp():
+    return datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+
+def docker_log(text):
+    os.system(f"echo {timestamp()} - {text} > /proc/1/fd/1")
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -20,17 +25,17 @@ def index():
 def push():
     content = request.get_json()
     if not all(x in content for x in ["user", "token", "message"]):
-        os.system(f"echo Missing input data: {content} > /proc/1/fd/1")
+        docker_log(f"echo Missing input data: {content} > /proc/1/fd/1")
         return make_response("Missing either user, token or message in data.", 422)
     else:
         push = Pushover()
         result = push.message(**content)
         if result.answer["status"] == 1:
-            os.system(f"echo Done: {result.answer} > /proc/1/fd/1")
+            docker_log(f"echo Message sent: {result.answer} > /proc/1/fd/1")
             return make_response(f"{result.answer}", 200)
         else:
-            os.system(f"echo Bad Request: {result.answer} > /proc/1/fd/1")
+            docker_log(f"echo Bad Request: {result.answer} > /proc/1/fd/1")
             return make_response(f"{result.answer}", 400)
 
-
-app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=True)

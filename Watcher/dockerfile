@@ -3,8 +3,8 @@ LABEL maintainer="Lanjelin"
 RUN export DEBIAN_FRONTEND=noninteractive; \
     apt-get update && \
     apt-get install -y wget && \
-    wget -qO /watcher.py https://raw.githubusercontent.com/Lanjelin/Docker-VPN-Pushover/main/Watcher/watcher.py && \
-    wget -qO /requirements.txt https://raw.githubusercontent.com/Lanjelin/Docker-VPN-Pushover/main/Watcher/requirements.txt && \
+    wget -qO /watcher.py https://raw.githubusercontent.com/Lanjelin/Docker-VPNWatcher/main/Watcher/watcher.py && \
+    wget -qO /requirements.txt https://raw.githubusercontent.com/Lanjelin/Docker-VPNWatcher/main/Watcher/requirements.txt && \
     chmod +x watcher.py && \
     python3 -m pip install -r requirements.txt
 ENTRYPOINT ["python3", "/watcher.py"]

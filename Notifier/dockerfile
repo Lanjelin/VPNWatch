@@ -3,9 +3,9 @@ LABEL maintainer="Lanjelin"
 RUN export DEBIAN_FRONTEND=noninteractive; \
     apt-get update && \
     apt-get install -y wget && \
-    wget -qO /pushover.py https://raw.githubusercontent.com/Lanjelin/Docker-VPN-Pushover/main/PushoverProxy/pushover.py && \
-    wget -qO /server.py https://raw.githubusercontent.com/Lanjelin/Docker-VPN-Pushover/main/PushoverProxy/proxy.py && \
-    wget -qO /requirements.txt https://raw.githubusercontent.com/Lanjelin/Docker-VPN-Pushover/main/PushoverProxy/requirements.txt && \
-    chmod +x proxy.py && \
+    wget -qO /pushover.py https://raw.githubusercontent.com/Lanjelin/Docker-VPN-Pushover/main/Notifier/pushover.py && \
+    wget -qO /server.py https://raw.githubusercontent.com/Lanjelin/Docker-VPN-Pushover/main/Notifier/notifier.py && \
+    wget -qO /requirements.txt https://raw.githubusercontent.com/Lanjelin/Docker-VPN-Pushover/main/Notifier/requirements.txt && \
+    chmod +x notifier.py && \
     python3 -m pip install -r requirements.txt
-ENTRYPOINT ["python3", "/proxy.py"]
+ENTRYPOINT ["python3", "/notifier.py"]

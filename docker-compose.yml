@@ -11,7 +11,7 @@ version: "2.1"
       - PUSHOVER=http://<IP:PORT-OF-NOTIFIER>/push
       - IP=<YOUR-WAN-IP-GOES-HERE>
       #Optional
-      - TIMER=360  #how often to run, in secods. defaults to 360s/5m
+      - TIMER=360  #how often to run, in seconds. defaults to 360s/5m
       - TITLE=VPNWatcher
       - PRIORITY=1
       - EXPIRE=120

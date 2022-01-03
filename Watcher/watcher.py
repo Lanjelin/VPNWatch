@@ -63,7 +63,7 @@ class Watcher():
             self.url = f"{self.url}/push" if "push" not in self.url else self.url
             for keyword in self.pushover_keywords:
                 if keyword in self.environ_lower:
-                    self.data[keyword] = self.environ_lower[keyword]
+                    self.data[keyword] = self.environ_lower[keyword].lower()
             self.timer = int(self.environ_lower["timer"]) if "timer" in self.environ_lower else 360        
 
     def test_pushover(self):
@@ -73,7 +73,7 @@ class Watcher():
 
     def watch(self):
         try:
-            ip = requests.get("https://api.ipify.org").content.decode("utf8")
+            ip = requests.get("https://api.ipify.org", timeout=7).content.decode("utf8")
         except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
             if self.vpn_state == 0:
                 self.data["message"] = "No connection through VPN Tunnel."

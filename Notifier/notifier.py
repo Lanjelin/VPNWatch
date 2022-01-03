@@ -28,16 +28,16 @@ def index():
 def push():
     content = request.get_json()
     if not all(x in content for x in ["user", "token", "message"]):
-        docker_log(f"echo Missing input data: {content} > /proc/1/fd/1")
+        docker_log(f"Missing input data: {content}")
         return make_response("Missing either user, token or message in data.", 422)
     else:
         push = Pushover()
         result = push.message(**content)
         if result.answer["status"] == 1:
-            docker_log(f"echo Message sent: {result.answer} > /proc/1/fd/1")
+            docker_log(f"Message sent: {result.answer}")
             return make_response(f"{result.answer}", 200)
         else:
-            docker_log(f"echo Bad Request: {result.answer} > /proc/1/fd/1")
+            docker_log(f"Bad Request: {result.answer}")
             return make_response(f"{result.answer}", 400)
 
 if __name__ == "__main__":

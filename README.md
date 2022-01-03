@@ -5,4 +5,4 @@
 
 Notifies through Pushover should your Docker VPN-Client go down, or expose your real IP.
 
-Made and tested for [qdm12/gluetun](https://github.com/qdm12/gluetun)
+Made and tested for [Gluetun VPN client](https://github.com/qdm12/gluetun)

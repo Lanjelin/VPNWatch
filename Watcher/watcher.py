@@ -6,9 +6,6 @@ import requests
 from time import sleep
 from datetime import datetime
 
-## Printe til konsoll på notifier, med data sendt, msg name token
-
-## sjekke om priority 2 gir falsk tilbakemelding fra server
 
 class Watcher():
     def __init__(self, environ_lower):

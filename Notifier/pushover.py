@@ -190,11 +190,9 @@ class Pushover(object):
             for key, value in kwargs.items():
                 if key not in Pushover.message_keywords:
                     raise ValueError(f"{key}: invalid message parameter")
-                elif (
-                    key == "timestamp" and bool(distutils.util.strtobool(value)) is True
-                ):
+                elif key == "timestamp" and value.lower() == "true":
                     payload[key] = int(time.time())
-                elif key == "sound" and value not in self.sounds:
+                elif key == "sound" and value.lower() not in self.sounds:
                     raise ValueError(f"{value}: invalid sound")
                 elif key == "retry" and int(value) < 30:
                     raise ValueError(f"retry={value}: aleast 30 seconds")

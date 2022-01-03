@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#Based on https://github.com/Thibauth/python-pushover
+# Based on https://github.com/Thibauth/python-pushover
 import requests
 import time
 
@@ -181,22 +181,24 @@ class Pushover(object):
         to the `attachment` keyword argument.
         This method returns a :class:`MessageRequest` object.
         """
-        if 'user' in kwargs:
-             self.user = kwargs.pop('user')
-        if 'token' in kwargs:
-             self.token = kwargs.pop('token')
+        if "user" in kwargs:
+            self.user = kwargs.pop("user")
+        if "token" in kwargs:
+            self.token = kwargs.pop("token")
         payload = {"message": message, "user": self.user, "token": self.token}
         try:
             for key, value in kwargs.items():
                 if key not in Pushover.message_keywords:
                     raise ValueError(f"{key}: invalid message parameter")
-                elif key == "timestamp" and value is True:
+                elif (
+                    key == "timestamp" and bool(distutils.util.strtobool(value)) is True
+                ):
                     payload[key] = int(time.time())
                 elif key == "sound" and value not in self.sounds:
                     raise ValueError(f"{value}: invalid sound")
-                elif key == "retry" and value < 30:
+                elif key == "retry" and int(value) < 30:
                     raise ValueError(f"retry={value}: aleast 30 seconds")
-                elif key == "expire" and value > 10800:
+                elif key == "expire" and int(value) > 10800:
                     raise ValueError(f"expire={value}: at most 10800 seconds")
                 else:
                     payload[key] = value
